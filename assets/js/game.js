@@ -1,3 +1,6 @@
+/* Game Functions */
+
+// function to generate a random numberic value
 var randomNumber = function(min, max) {
     var value = Math.floor(Math.random() * (max - min + 1) + min);
     return value;
@@ -22,10 +25,6 @@ var fight = function(enemy) {
             break;
             }
         }
-        var randomNumber = function(min, max) {
-            var value = Math.floor(Math.random() * (max - min + 1) + min);
-            return value;
-        };
 
         // generate random damage value based on player's attack power
         var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
@@ -83,12 +82,6 @@ var startGame = function() {
             // pick new enemy to fight based on the index of the enemy.names array
             var pickedEnemyObj = enemyInfo[i];
 
-            // function to generate a random numeric value
-            var randomNumber = function(min, max) {
-                var value = Math.floor(Math.random() * (max - min + 1) + min);
-                return value;
-            };
-
             // reset enemy.health before starting new fight
             pickedEnemyObj.health = randomNumber(40, 60);
   
@@ -134,8 +127,7 @@ var endGame = function() {
     if (playAgainConfirm) {
     // restart the game
     startGame();
-    } 
-    else {
+    } else {
         window.alert("Thank you for playing Robot Gladiators! Come back soon!");
     }
 };
@@ -170,6 +162,7 @@ var shop = function() {
     }
 }
 
+// player information
 var playerInfo = {
     name: window.prompt("What is your robot's name?"),
     health: 100,
@@ -202,6 +195,7 @@ var playerInfo = {
     }
 };
 
+// enemy information
 var enemyInfo = [
     {
       name: "Roborto",
@@ -215,7 +209,7 @@ var enemyInfo = [
       name: "Robo Trumble",
       attack: randomNumber(10,14)
     }
-  ];
+];
 
 // start the game when the page loads
 startGame();
