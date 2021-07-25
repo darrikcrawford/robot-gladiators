@@ -10,7 +10,13 @@ var randomNumber = function(min, max) {
 var fightOrSkip = function() {
     // ask player if they'd like to fight or skip using fightOrSkip function
     var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
-  
+    
+    // Conditional Recursive Function Call
+    if (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid answer! Please try again.");
+        return fightOrSkip();
+    }
+
     promptFight = promptFight.toLowerCase();
     
     // if player picks "skip" confirm and then stop the loop
@@ -27,14 +33,9 @@ var fightOrSkip = function() {
             // return true if player wants to leave
             return true;
         }
-        shop();
     }
-    // Conditional Recursive Function Call
-    if (promptFight === "" || promptFight === null) {
-        window.alert("You need to provide a valid answer! Please try again.");
-        return fightOrSkip();
-    }
-}
+    return false;
+};
 
 // fight function
 var fight = function(enemy) { 
@@ -105,6 +106,10 @@ var startGame = function() {
 
     // fight each enemy robot by looping over them and fighting them one at a time
     for (var i = 0; i < enemyInfo.length; i++) {
+
+        // check player stats
+        console.log(playerInfo);
+
         // if player is still alive, keep fighting
         if (playerInfo.health > 0) {
             // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
@@ -116,7 +121,6 @@ var startGame = function() {
             // reset enemy.health before starting new fight
             pickedEnemyObj.health = randomNumber(40, 60);
   
-            
             // pass the pickedenemy.name variable's value into the fight function, where it will assume the value of the enemy.name parameter
             fight(pickedEnemyObj);
 
@@ -178,17 +182,18 @@ var shop = function() {
     var shopOptionPrompt = window.prompt(
         "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 1 to REFILL, 2 UPGRADE, or 3 to LEAVE."
     );
+
+      // convert answer from prompt to an actual number
     shopOptionPrompt = parseInt(shopOptionPrompt);
+
     // use switch to carry out action
     switch (shopOptionPrompt) {
         case 1:
             playerInfo.refillHealth();
             break;
-            
         case 2:
             playerInfo.upgradeAttack();
             break;
-        
         case 3:
             window.alert("Leaving the store.");
             // do nothing, so function will end
@@ -261,11 +266,6 @@ var enemyInfo = [
       attack: randomNumber(10,14)
     }
 ];
-
-console.log(enemyInfo);
-console.log(enemyInfo[0]);
-console.log(enemyInfo[0].name);
-console.log(enemyInfo[0]['attack']);
 
 // start the game when the page loads
 startGame();
